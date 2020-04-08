@@ -2,19 +2,15 @@ package com.example.car.web;
 
 import com.example.car.domain.Car;
 import com.example.car.domain.CarRepository;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import reactor.core.publisher.Mono;
-
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.core.publisher.Mono;
 
 import static org.mockito.BDDMockito.given;
 
-@RunWith(SpringRunner.class)
 @WebFluxTest
 public class CarControllerTests {
 

@@ -2,20 +2,16 @@ package com.example.car;
 
 import com.example.car.domain.Car;
 import com.example.car.domain.CarRepository;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.CollectionOptions;
 import org.springframework.data.mongodb.core.ReactiveMongoOperations;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class IntegrationTests {
 
@@ -28,7 +24,7 @@ public class IntegrationTests {
 	@Autowired
 	private ReactiveMongoOperations operations;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		this.operations
 				.createCollection(Car.class, CollectionOptions.empty().size(1024 * 1024).maxDocuments( 100).capped())
