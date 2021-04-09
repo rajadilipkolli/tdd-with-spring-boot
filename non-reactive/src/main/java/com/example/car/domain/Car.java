@@ -40,4 +40,7 @@ public class Car {
 		this.type = type;
 	}
 
+	public Long getId() {
+		return id;
+	}
 }
