@@ -3,6 +3,8 @@ package com.example.car.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.StringJoiner;
+
 @Document
 public class Car {
 
@@ -37,4 +39,12 @@ public class Car {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Car.class.getSimpleName() + "{", "}")
+                .add("id='" + id + "'")
+                .add("name='" + name + "'")
+                .add("type='" + type + "'")
+                .toString();
+    }
 }

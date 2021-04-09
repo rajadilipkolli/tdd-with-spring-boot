@@ -18,7 +18,7 @@ public class CarRepositoryTests {
     private CarRepository carRepository;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         this.carRepository.save(new Car("prius", "hybrid"))
 			.then()
 			.block();

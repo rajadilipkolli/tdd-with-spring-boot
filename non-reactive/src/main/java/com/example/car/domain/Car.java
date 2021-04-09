@@ -3,8 +3,10 @@ package com.example.car.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity
+@Table(name = "Car")
+@Entity(name = "Car")
 public class Car {
 
 	@Id
@@ -42,5 +44,14 @@ public class Car {
 
 	public Long getId() {
 		return id;
+	}
+
+	@Override
+	public String toString() {
+		return "Car{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", type='" + type + '\'' +
+				'}';
 	}
 }

@@ -37,4 +37,15 @@ public class IntegrationTests extends DBContainerConfiguration {
 		this.carRepository.deleteById(car.getId());
 	}
 
+	@Test
+	public void getCar_WithName_ReturnsNoCar() {
+		ResponseEntity<Car> responseEntity = this.testRestTemplate.getForEntity("/cars/{name}", Car.class, "junit");
+		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+		Car car = responseEntity.getBody();
+		assertThat(car).isNotNull();
+		assertThat(car.getId()).isNull();
+		assertThat(car.getName()).isNull();
+		assertThat(car.getType()).isNull();
+	}
+
 }
