@@ -4,7 +4,9 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
+@Testcontainers
 public class DBContainerConfiguration {
 
     @Container
@@ -13,10 +15,6 @@ public class DBContainerConfiguration {
                     .withDatabaseName("integration-tests-db")
                     .withUsername("username")
                     .withPassword("password");
-
-    static {
-        sqlContainer.start();
-    }
 
     @DynamicPropertySource
     static void setSqlContainer(DynamicPropertyRegistry propertyRegistry) {

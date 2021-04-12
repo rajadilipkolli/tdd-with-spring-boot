@@ -16,6 +16,7 @@
     <modules>
         <module>non-reactive</module>
         <module>reactive</module>
+        <module>wiremock-non-reactive</module>
     </modules>
 
 </project>
