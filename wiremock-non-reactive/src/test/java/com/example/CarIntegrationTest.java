@@ -53,6 +53,7 @@ class CarIntegrationTest {
                         .withBody(FakeDataGenerator.getFakeCarsAsJSON())));
 
         RestAssured.given()
+                .contentType(ContentType.JSON)
                 .get("/cars/{name}", "BMW")
                 .then()
                     .statusCode(org.apache.http.HttpStatus.SC_OK)
