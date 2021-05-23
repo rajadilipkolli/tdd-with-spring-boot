@@ -1,9 +1,12 @@
-package com.example.car.domain;
+package com.example.car.repository;
 
+import com.example.car.domain.Car;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,7 +22,10 @@ class CarRepositoryTests {
 	@Test
 	void findByName_ReturnsCar() {
 		Car savedCar = testEntityManager.persistFlushFind(new Car("prius", "hybrid"));
-		Car car = this.repository.findByName("prius");
+		Optional<Car> optionalCar = this.repository.findByName("prius");
+		assertThat(optionalCar).isPresent();
+		Car car = optionalCar.get();
+		assertThat(car.getId()).isPositive();
 		assertThat(car.getName()).isEqualTo(savedCar.getName());
 		assertThat(car.getType()).isEqualTo(savedCar.getType());
 	}

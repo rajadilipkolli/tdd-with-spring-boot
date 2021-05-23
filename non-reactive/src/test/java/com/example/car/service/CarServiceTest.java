@@ -1,16 +1,15 @@
 package com.example.car.service;
 
 import com.example.car.domain.Car;
-import com.example.car.domain.CarRepository;
+import com.example.car.repository.CarRepository;
 import com.example.car.web.CarNotFoundException;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -28,7 +27,7 @@ class CarServiceTest {
 
 	@Test
 	void getCarDetails_returnsCarInfo() {
-		given(carRepository.findByName("prius")).willReturn(new Car("prius", "hybrid"));
+		given(carRepository.findByName("prius")).willReturn(Optional.of(new Car("prius", "hybrid")));
 
 		Car car = carService.getCarDetails("prius");
 
@@ -38,7 +37,7 @@ class CarServiceTest {
 
 	@Test
 	void getCarDetails_whenCarNotFound() {
-		given(carRepository.findByName("prius")).willReturn(null);
+		given(carRepository.findByName("prius")).willReturn(Optional.empty());
 
 		assertThatThrownBy(() -> carService.getCarDetails("prius")).isInstanceOf(CarNotFoundException.class);
 	}

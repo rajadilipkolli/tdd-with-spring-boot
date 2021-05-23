@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 import static org.mockito.BDDMockito.given;
 
 @WebFluxTest(controllers = CarController.class)
-public class CarControllerTests {
+class CarControllerTests {
 
     @MockBean
     private CarRepository carRepository;
@@ -25,7 +25,7 @@ public class CarControllerTests {
     private WebTestClient webTestClient;
 
     @Test
-    public void getCar_WithName_returnsCar() throws Exception {
+    void getCar_WithName_returnsCar() {
     	Car car = new Car("prius", "hybrid");
 		given(carRepository.findByName("prius")).willReturn(Mono.just(car));
 

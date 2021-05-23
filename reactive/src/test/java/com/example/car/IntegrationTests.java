@@ -2,8 +2,8 @@ package com.example.car;
 
 import com.example.car.domain.Car;
 import com.example.car.domain.CarRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 @TestPropertySource(properties = "spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration")
-public class IntegrationTests {
+class IntegrationTests {
 
 	@Autowired
 	private WebTestClient webTestClient;
@@ -40,14 +40,18 @@ public class IntegrationTests {
 	protected static final MongoDBContainer MONGO_DB_CONTAINER =
 			new MongoDBContainer(mongoDockerImageName).withExposedPorts(27017);
 
+	static {
+		MONGO_DB_CONTAINER.start();
+	}
+
 	@DynamicPropertySource
 	static void setMongoDbContainerURI(DynamicPropertyRegistry propertyRegistry) {
 		propertyRegistry.add("spring.data.mongodb.host", MONGO_DB_CONTAINER::getHost);
 		propertyRegistry.add("spring.data.mongodb.port", MONGO_DB_CONTAINER::getFirstMappedPort);
 	}
 
-	@BeforeEach
-	public void setUp() throws Exception {
+	@BeforeAll
+	public void setUp() {
 		this.operations
 				.createCollection(Car.class, CollectionOptions.empty().size(1024 * 1024).maxDocuments( 100).capped())
 				.then()
@@ -59,7 +63,7 @@ public class IntegrationTests {
 				.block();
 	}
 
-	@AfterEach
+	@AfterAll
 	public void tearDown() {
 		this.operations.dropCollection(Car.class).block();
 	}
@@ -70,17 +74,18 @@ public class IntegrationTests {
 	}
 
 	@Test
-	public void getCar_WithName_ReturnsCar() {
+	void getCar_WithName_ReturnsCar() {
 		Car car = this.webTestClient.get().uri("/cars/{name}", "prius")
 				.exchange().expectStatus().isOk()
 				.expectBody(Car.class).returnResult().getResponseBody();
 		assertThat(car).isNotNull();
+		assertThat(car.getId()).isNotNull();
 		assertThat(car.getName()).isEqualTo("prius");
 		assertThat(car.getType()).isEqualTo("hybrid");
 	}
 
 	@Test
-	public void getCar_WithName_ReturnsNoCar() {
+	void getCar_WithName_ReturnsNoCar() {
 		this.webTestClient.get().uri("/cars/{name}", "junit")
 				.exchange().expectStatus().isNotFound()
 				.expectBody()

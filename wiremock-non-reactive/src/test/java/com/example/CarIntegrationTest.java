@@ -8,7 +8,6 @@ import io.restassured.http.ContentType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -24,7 +23,6 @@ import static org.hamcrest.Matchers.equalTo;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = { WireMockInitializer.class }, classes = {
         CarApplication.class })
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class CarIntegrationTest {
 
     @Autowired
@@ -39,8 +37,7 @@ class CarIntegrationTest {
     }
 
     @AfterEach
-    public void afterEach()
-    {
+    public void afterEach() {
         this.wireMockServer.resetAll();
     }
 

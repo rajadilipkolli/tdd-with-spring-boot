@@ -1,31 +1,29 @@
 package com.example.car.domain;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import reactor.test.StepVerifier;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import reactor.test.StepVerifier;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataMongoTest
-public class CarRepositoryTests {
+class CarRepositoryTests {
 
 	@Autowired
     private CarRepository carRepository;
 
-    @BeforeEach
+    @BeforeAll
     public void setUp() {
         this.carRepository.save(new Car("prius", "hybrid"))
 			.then()
 			.block();
     }
 
-    @AfterEach
-    public void tearDown() throws Exception {
+    @AfterAll
+    public void tearDown() {
         carRepository.deleteAll()
 			.then()
 			.block();

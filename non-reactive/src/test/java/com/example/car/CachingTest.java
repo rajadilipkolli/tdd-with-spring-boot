@@ -1,7 +1,7 @@
 package com.example.car;
 
 import com.example.car.domain.Car;
-import com.example.car.domain.CarRepository;
+import com.example.car.repository.CarRepository;
 import com.example.car.service.CarService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,26 +9,28 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import static org.mockito.ArgumentMatchers.anyString;
+import java.util.Optional;
+
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureTestDatabase
-public class CachingTest {
+class CachingTest {
 
 	@Autowired
-	private CarService service;
+	private CarService carService;
 
 	@MockBean
-	private CarRepository repository;
+	private CarRepository carRepository;
 
 	@Test
-	public void getCar_ReturnsCachedValue() throws Exception {
-		given(repository.findByName(anyString())).willReturn(new Car("prius", "hybrid"));
-		service.getCarDetails("prius");
-		service.getCarDetails("prius");
-		verify(repository, times(1)).findByName("prius");
+	void getCar_ReturnsCachedValue() {
+		Car car = new Car("prius", "hybrid");
+		given(carRepository.findByName("prius")).willReturn(Optional.of(car));
+		carService.getCarDetails("prius");
+		carService.getCarDetails("prius");
+		verify(carRepository, times(1)).findByName("prius");
 	}
 }

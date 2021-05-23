@@ -39,6 +39,10 @@ public class Car {
         this.type = type;
     }
 
+    public String getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", Car.class.getSimpleName() + "{", "}")

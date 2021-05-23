@@ -1,10 +1,9 @@
 package com.example.car.domain;
 
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Mono;
 
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-
-public interface CarRepository extends ReactiveCrudRepository<Car, String> {
+public interface CarRepository extends ReactiveMongoRepository<Car, String> {
 
 	Mono<Car> findByName(String name);
 

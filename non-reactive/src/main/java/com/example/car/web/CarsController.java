@@ -2,7 +2,6 @@ package com.example.car.web;
 
 import com.example.car.domain.Car;
 import com.example.car.service.CarService;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,11 +19,7 @@ public class CarsController {
 
 	@GetMapping("/cars/{name}")
 	public Car getCar(@PathVariable String name) {
-		Car car = this.carService.getCarDetails(name);
-		if (car == null) {
-			throw new CarNotFoundException();
-		}
-		return car;
+		return this.carService.getCarDetails(name);
 	}
 
 	@PostMapping("/cars/")
