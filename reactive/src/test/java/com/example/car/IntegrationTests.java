@@ -34,7 +34,7 @@ class IntegrationTests {
 	@Autowired
 	private ReactiveMongoOperations operations;
 
-	static DockerImageName mongoDockerImageName = DockerImageName.parse("mongo");
+	static DockerImageName mongoDockerImageName = DockerImageName.parse("mongo:5.0");
 
 	@Container
 	protected static final MongoDBContainer MONGO_DB_CONTAINER =
