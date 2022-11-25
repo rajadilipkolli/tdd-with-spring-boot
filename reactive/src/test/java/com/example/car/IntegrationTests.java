@@ -1,5 +1,6 @@
 package com.example.car;
 
+import com.example.car.common.AbstractMongoDbContainer;
 import com.example.car.domain.Car;
 import com.example.car.domain.CarRepository;
 import org.junit.jupiter.api.AfterAll;
@@ -9,21 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.CollectionOptions;
 import org.springframework.data.mongodb.core.ReactiveMongoOperations;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.testcontainers.containers.MongoDBContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.utility.DockerImageName;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Testcontainers
-@TestPropertySource(properties = "spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration")
-class IntegrationTests {
+class IntegrationTests extends AbstractMongoDbContainer {
 
 	@Autowired
 	private WebTestClient webTestClient;
@@ -33,22 +24,6 @@ class IntegrationTests {
 
 	@Autowired
 	private ReactiveMongoOperations operations;
-
-	static DockerImageName mongoDockerImageName = DockerImageName.parse("mongo:5.0");
-
-	@Container
-	protected static final MongoDBContainer MONGO_DB_CONTAINER =
-			new MongoDBContainer(mongoDockerImageName).withExposedPorts(27017);
-
-	static {
-		MONGO_DB_CONTAINER.start();
-	}
-
-	@DynamicPropertySource
-	static void setMongoDbContainerURI(DynamicPropertyRegistry propertyRegistry) {
-		propertyRegistry.add("spring.data.mongodb.host", MONGO_DB_CONTAINER::getHost);
-		propertyRegistry.add("spring.data.mongodb.port", MONGO_DB_CONTAINER::getFirstMappedPort);
-	}
 
 	@BeforeAll
 	public void setUp() {
