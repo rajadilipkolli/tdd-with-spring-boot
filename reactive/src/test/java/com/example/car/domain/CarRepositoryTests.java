@@ -5,12 +5,15 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+
+import com.example.car.common.AbstractMongoDbContainer;
+
 import reactor.test.StepVerifier;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataMongoTest
-class CarRepositoryTests {
+class CarRepositoryTests extends AbstractMongoDbContainer {
 
 	@Autowired
     private CarRepository carRepository;

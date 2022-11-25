@@ -14,8 +14,8 @@
     <description>Demo project for Spring Boot TDD</description>
          
     <properties>
-      <sonar.projectKey>rajadileepkolli_tdd-with-spring-boot</sonar.projectKey>
-      <sonar.organization>rajadileepkolli</sonar.organization>
+      <sonar.projectKey>rajadilipkolli_tdd-with-spring-boot</sonar.projectKey>
+      <sonar.organization>rajadilipkolli</sonar.organization>
       <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>     
 
