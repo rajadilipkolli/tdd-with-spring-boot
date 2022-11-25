@@ -1,5 +1,5 @@
 # tdd-with-spring-boot
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://github.com/rajadilipkolli/tdd-with-spring-boot)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/rajadilipkolli/tdd-with-spring-boot)
 
 This contains performing TDD in both reactive application and traditional application.
 
