@@ -22,3 +22,7 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+.rewrite-cache/
+spring-boot-migrator.jar
+spring-boot-upgrade.jar
+spring-boot-migrator.log
