@@ -22,7 +22,7 @@
 		<java.version>17</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<testcontainers.version>1.17.6</testcontainers.version>
+		<testcontainers.version>1.18.0</testcontainers.version>
 	</properties>
 
 	<dependencies>
