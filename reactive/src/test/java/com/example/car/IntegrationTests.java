@@ -1,20 +1,24 @@
 package com.example.car;
 
-import com.example.car.common.AbstractMongoDbContainer;
+import com.example.car.common.MongoDbTestContainerConfiguration;
 import com.example.car.domain.Car;
 import com.example.car.domain.CarRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.core.CollectionOptions;
 import org.springframework.data.mongodb.core.ReactiveMongoOperations;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class IntegrationTests extends AbstractMongoDbContainer {
+@Import(MongoDbTestContainerConfiguration.class)
+@AutoConfigureWebTestClient
+class IntegrationTests {
 
 	@Autowired
 	private WebTestClient webTestClient;
@@ -41,11 +45,6 @@ class IntegrationTests extends AbstractMongoDbContainer {
 	@AfterAll
 	public void tearDown() {
 		this.operations.dropCollection(Car.class).block();
-	}
-
-	@Test
-	void test() {
-		assertThat(MONGO_DB_CONTAINER.isRunning()).isTrue();
 	}
 
 	@Test
