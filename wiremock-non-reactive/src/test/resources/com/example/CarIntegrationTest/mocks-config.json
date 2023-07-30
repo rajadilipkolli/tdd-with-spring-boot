@@ -1,0 +1,20 @@
+{
+    "mappings": [
+      {
+        "request": {
+          "method": "GET",
+          "urlPattern": "/cars/BMW"
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "jsonBody": {
+              "name": "BMW",
+              "type" : "hybrid"
+            }
+        }
+      }
+    ]
+  }

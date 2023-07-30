@@ -1,63 +1,59 @@
 package com.example;
 
-import com.example.data.FakeDataGenerator;
-import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.client.WireMock;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpStatus;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.wiremock.integrations.testcontainers.WireMockContainer;
 
 import java.io.IOException;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static org.hamcrest.Matchers.equalTo;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ContextConfiguration(initializers = { WireMockInitializer.class }, classes = {
-        CarApplication.class })
+@Testcontainers
 class CarIntegrationTest {
 
-    @Autowired
-    private WireMockServer wireMockServer;
-
     @LocalServerPort
-    private int localServerPort;
+    private Integer localServerPort;
+
+    @Container
+    static WireMockContainer wireMockServer = new WireMockContainer("wiremock/wiremock:3x-alpine")
+            .withMapping("cars-by-name",
+                    CarIntegrationTest.class,
+                    "mocks-config.json");
+
+    static {
+        wireMockServer.start();
+    }
 
     @BeforeAll
     void setUp() {
         RestAssured.port = localServerPort;
     }
 
-    @AfterEach
-    public void afterEach() {
-        this.wireMockServer.resetAll();
+    @DynamicPropertySource
+    static void configureProperties(DynamicPropertyRegistry registry) {
+        registry.add("com.example.car.url", wireMockServer::getBaseUrl);
     }
 
     @Test
     void testGetCars() throws IOException {
-        wireMockServer.stubFor(get(WireMock.urlEqualTo("/cars/BMW"))
-                .willReturn(aResponse()
-                        .withStatus(HttpStatus.OK.value())
-                        .withHeader("content-type", "application/json")
-                        .withBody(FakeDataGenerator.getFakeCarsAsJSON())));
-
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .get("/cars/{name}", "BMW")
                 .then()
-                    .statusCode(org.apache.http.HttpStatus.SC_OK)
-                    .contentType(ContentType.JSON)
-                    .assertThat()
-                    .body("name", equalTo("BMW"))
-                    .body("type", equalTo("hybrid"));
+                .statusCode(org.apache.http.HttpStatus.SC_OK)
+                .contentType(ContentType.JSON)
+                .assertThat()
+                .body("name", equalTo("BMW"))
+                .body("type", equalTo("hybrid"));
     }
 
 }
