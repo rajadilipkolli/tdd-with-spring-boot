@@ -2,11 +2,35 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TestCarsApplication",
+            "request": "launch",
+            "mainClass": "com.example.car.TestCarsApplication",
+            "projectName": "mbhave-tdd-demo"
+        },
+        {
+            "type": "java",
+            "name": "TestCarsApplication",
+            "request": "launch",
+            "mainClass": "com.example.car.TestCarsApplication",
+            "projectName": "reactive-tdd-demo"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-CarApplication<wiremock-non-reactive>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "mainClass": "com.example.CarApplication",
             "projectName": "wiremock-non-reactive",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-CarsApplication<reactive-tdd-demo>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.car.CarsApplication",
+            "projectName": "reactive-tdd-demo",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
         }

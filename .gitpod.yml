@@ -2,10 +2,15 @@
 image: gitpod/workspace-java-17
 
 tasks:
-  - init: ./mvnw install -DskipTests=false
+  - init: ./mvnw install -DskipTests
 
 vscode:
   extensions:
     - vscjava.vscode-java-pack
     - vscjava.vscode-maven
     - Pivotal.vscode-boot-dev-pack
+
+ports:
+  - port: 8080
+    visibility: public
+    onOpen: open-browser
