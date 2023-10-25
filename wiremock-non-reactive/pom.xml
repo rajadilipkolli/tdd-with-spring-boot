@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.2</version>
+        <version>3.1.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -55,15 +55,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.tomakehurst</groupId>
+            <groupId>org.wiremock</groupId>
             <artifactId>wiremock</artifactId>
-            <version>${wiremock.version}</version>
+            <version>3.2.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.github.wiremock</groupId>
             <artifactId>wiremock-testcontainers-java</artifactId>
-            <version>1.0-alpha-6</version>
+            <version>1.0-alpha-8</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
