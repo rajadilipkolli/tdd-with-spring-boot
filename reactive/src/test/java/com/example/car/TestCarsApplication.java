@@ -10,7 +10,7 @@ import org.testcontainers.utility.DockerImageName;
 @TestConfiguration(proxyBeanMethods = false)
 public class TestCarsApplication {
     
-    private static final DockerImageName MONGO_DOCKER_IMAGE = DockerImageName.parse("mongo:6.0.8");
+    private static final DockerImageName MONGO_DOCKER_IMAGE = DockerImageName.parse("mongo:6.0.11");
 
 	@Bean
 	@ServiceConnection

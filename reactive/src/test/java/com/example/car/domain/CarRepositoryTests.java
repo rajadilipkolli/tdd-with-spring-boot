@@ -19,21 +19,21 @@ class CarRepositoryTests extends AbstractMongoDbContainer {
     private CarRepository carRepository;
 
     @BeforeAll
-    public void setUp() {
+    void setUp() {
         this.carRepository.save(new Car("prius", "hybrid"))
 			.then()
 			.block();
     }
 
     @AfterAll
-    public void tearDown() {
+    void tearDown() {
         carRepository.deleteAll()
 			.then()
 			.block();
     }
 
     @Test
-    public void findByName_returnsCar() {
+    void findByName_returnsCar() {
 		StepVerifier.create(carRepository.findByName("prius"))
 				.consumeNextWith(car -> {
 					assertThat(car.getName()).isEqualTo("prius");
