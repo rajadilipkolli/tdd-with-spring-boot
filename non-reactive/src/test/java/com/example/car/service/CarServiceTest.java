@@ -43,7 +43,7 @@ class CarServiceTest {
 	}
 
 	@Test
-	void testSaveCar() {
+	void saveCar() {
 		Car requestedCar = new Car("BMW", "hybrid");
 		given(carRepository.save(any(Car.class))).willReturn(requestedCar);
 		Car persistedCar = this.carService.saveCar(requestedCar);

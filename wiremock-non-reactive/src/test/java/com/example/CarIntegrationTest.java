@@ -44,7 +44,7 @@ class CarIntegrationTest {
     }
 
     @Test
-    void testGetCars() throws IOException {
+    void getCars() throws IOException {
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .get("/cars/{name}", "BMW")

@@ -19,12 +19,11 @@ public class DomainExceptionWrapper extends DefaultErrorAttributes {
         final var error = getError(request);
         final var errorAttributes = super.getErrorAttributes(request, includeStackTrace);
 //        errorAttributes.put(ErrorAttribute.TRACE_ID.value, tracer.traceId());
-        if (error instanceof DomainException) {
+        if (error instanceof DomainException exception) {
             log.error("Caught an instance of: {}, err: {}", DomainException.class, error);
-            final var errorStatus = ((DomainException) error);
-            errorAttributes.replace(ErrorAttribute.STATUS.value, errorStatus.getStatus().value());
-            errorAttributes.replace(ErrorAttribute.ERROR.value, errorStatus.getStatus().getReasonPhrase());
-            errorAttributes.replace("message", errorStatus.getMessage());
+            errorAttributes.replace(ErrorAttribute.STATUS.value, exception.getStatus().value());
+            errorAttributes.replace(ErrorAttribute.ERROR.value, exception.getStatus().getReasonPhrase());
+            errorAttributes.replace("message", exception.getMessage());
             return errorAttributes;
         }
         return errorAttributes;

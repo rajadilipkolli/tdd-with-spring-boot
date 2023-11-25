@@ -31,7 +31,7 @@ class CarRepositoryTests {
 	}
 
 	@Test
-	void testSaveCar() {
+	void saveCar() {
 
 		Car requestedCar = new Car("BMW", "hybrid");
 		Car persistedCar = this.repository.save(requestedCar);

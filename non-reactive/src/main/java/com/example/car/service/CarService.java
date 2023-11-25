@@ -3,7 +3,6 @@ package com.example.car.service;
 import com.example.car.domain.Car;
 import com.example.car.repository.CarRepository;
 import com.example.car.web.CarNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +11,6 @@ public class CarService {
 
 	private final CarRepository carRepository;
 
-	@Autowired
 	public CarService(CarRepository carRepository) {
 		this.carRepository = carRepository;
 	}

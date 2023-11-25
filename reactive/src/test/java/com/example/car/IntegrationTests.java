@@ -27,7 +27,7 @@ class IntegrationTests {
 	private ReactiveMongoOperations operations;
 
 	@BeforeAll
-	public void setUp() {
+	void setUp() {
 		this.operations
 				.createCollection(Car.class, CollectionOptions.empty().size(1024 * 1024).maxDocuments(100).capped())
 				.then()
@@ -40,7 +40,7 @@ class IntegrationTests {
 	}
 
 	@AfterAll
-	public void tearDown() {
+	void tearDown() {
 		this.operations.dropCollection(Car.class).block();
 	}
 
