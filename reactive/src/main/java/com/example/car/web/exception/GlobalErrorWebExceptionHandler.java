@@ -1,9 +1,9 @@
 package com.example.car.web.exception;
 
 import org.springframework.boot.autoconfigure.web.WebProperties;
-import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
-import org.springframework.boot.web.reactive.error.ErrorAttributes;
+import org.springframework.boot.webflux.autoconfigure.error.AbstractErrorWebExceptionHandler;
+import org.springframework.boot.webflux.error.ErrorAttributes;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
