@@ -12,6 +12,6 @@ public class ContainersConfig {
     @ServiceConnection
     @Bean
     MongoDBContainer mongoDBContainer() {
-        return new MongoDBContainer(DockerImageName.parse("mongo").withTag("8.2.7")).withSharding();
+        return new MongoDBContainer(DockerImageName.parse("mongo").withTag("8.3.2")).withSharding();
     }
 }

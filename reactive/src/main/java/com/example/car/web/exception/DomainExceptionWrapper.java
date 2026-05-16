@@ -23,7 +23,7 @@ public class DomainExceptionWrapper extends DefaultErrorAttributes {
             log.error("Caught an instance of: {}, err: {}", DomainException.class, error);
             errorAttributes.replace(ErrorAttribute.STATUS.value, exception.getStatus().value());
             errorAttributes.replace(ErrorAttribute.ERROR.value, exception.getStatus().getReasonPhrase());
-            errorAttributes.replace("message", exception.getMessage());
+            errorAttributes.put("message", exception.getMessage());
             return errorAttributes;
         }
         return errorAttributes;
