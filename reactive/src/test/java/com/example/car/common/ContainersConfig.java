@@ -9,6 +9,11 @@ import org.testcontainers.utility.DockerImageName;
 @TestConfiguration(proxyBeanMethods = false)
 public class ContainersConfig {
 
+    /**
+     * Creates the MongoDB container used as a service connection for reactive tests.
+     *
+     * @return a MongoDB container configured with sharding enabled
+     */
     @ServiceConnection
     @Bean
     MongoDBContainer mongoDBContainer() {
